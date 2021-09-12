@@ -27,7 +27,7 @@ class AuthView extends StatelessWidget {
                   text: 'تسجيل دخول',
                   color: kblack,
                   fontWeight: FontWeight.w900,
-                  fontSize: 18.0,
+                  fontSize: 20.0,
                 ),
                 Image.asset(
                   "assets/images/login.jpg",

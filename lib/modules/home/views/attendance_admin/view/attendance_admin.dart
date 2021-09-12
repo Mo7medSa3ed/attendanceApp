@@ -1,17 +1,18 @@
 import 'package:attendance_app/config/constants.dart';
-import 'package:attendance_app/modules/home/views/attendance/controller/attendance_controoler.dart';
-import 'package:attendance_app/modules/home/views/attendance/view/components/attendance_card.dart';
+import 'package:attendance_app/modules/home/views/attendance_admin/controller/attendance_controoler.dart';
+import 'package:attendance_app/modules/home/views/attendance_admin/view/components/attendance_card.dart';
+import 'package:attendance_app/modules/home/views/attendance_admin/view/components/scroll_select.dart';
 import 'package:attendance_app/shared/functions/functions.dart';
 import 'package:attendance_app/shared/widgets/primary_text%20_header.dart';
 import 'package:attendance_app/shared/widgets/primary_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class AttendanceView extends StatelessWidget {
+class AttendanceAdminView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AttendanceController>(
-      init: AttendanceController(),
+    return GetBuilder<AttendanceAdminController>(
+      init: AttendanceAdminController(),
       builder: (controller) => ListView.builder(
         padding: const EdgeInsets.symmetric(
             vertical: kdefultpadding * 2, horizontal: kdefultpadding),
@@ -22,8 +23,19 @@ class AttendanceView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   PrimaryHeaderText(
-                    text: 'التحضير',
+                    text: 'الدفتر',
                   ),
+                  SizedBox(height: kdefultpadding / 2),
+                  SelectScroll(
+                    title: 'اختر السنة',
+                    listNeed: 1,
+                  ),
+                  SizedBox(height: kdefultpadding / 2),
+                  SelectScroll(
+                    title: 'اختر الشعبة',
+                    listNeed: 2,
+                  ),
+                  SizedBox(height: kdefultpadding / 2),
                   Container(
                       margin:
                           const EdgeInsets.symmetric(vertical: kdefultpadding),
@@ -68,9 +80,16 @@ class AttendanceView extends StatelessWidget {
                         ),
                       )),
                   SizedBox(height: kdefultpadding / 2),
+                  PrimaryText(
+                    text: 'الطلاب',
+                    color: kbold,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                  ),
+                  SizedBox(height: kdefultpadding / 2),
                 ],
               )
-            : AttendanceCard(),
+            : AttendanceAdminCard(),
         itemCount: 50,
       ),
     );

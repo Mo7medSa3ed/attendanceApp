@@ -1,0 +1,122 @@
+import 'package:attendance_app/config/constants.dart';
+import 'package:attendance_app/helper/general_helper.dart';
+import 'package:attendance_app/modules/home/views/qr_code/view/qrCode.dart';
+import 'package:attendance_app/shared/widgets/primary_button.dart';
+import 'package:attendance_app/shared/widgets/primary_text%20_header.dart';
+import 'package:attendance_app/shared/widgets/primary_text.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class ProfileAdminView extends StatelessWidget {
+  final list = [
+    "حضور الطلاب",
+    "انصراف الطلاب",
+  ];
+  @override
+  Widget build(BuildContext context) {
+    if (false) {
+      list.add("تحديث المستخدمين");
+      list.add("تحديث المستخدمين");
+      list.add("تحديث المستخدمين");
+    }
+    return Container(
+      color: kwhite,
+      padding: const EdgeInsets.symmetric(
+          vertical: kdefultpadding * 2, horizontal: kdefultpadding),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          PrimaryHeaderText(
+            text: 'بياناتك',
+          ),
+          Spacer(flex: 1),
+          PrimaryText(
+            text: 'محمد سعيد عليوة',
+            color: kblack,
+            fontSize: 16,
+            fontWeight: FontWeight.w800,
+          ),
+          PrimaryText(
+            text: 'طالب',
+            color: kblack,
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+          ),
+          Spacer(flex: 1),
+          buildRow('البريد الالكترونى', 'admin@gmail.com'),
+          Spacer(flex: 1),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PrimaryText(
+                text: 'العمليات المتاحة',
+                color: kblack,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ],
+          ),
+          SizedBox(height: kdefultpadding),
+          Wrap(
+            spacing: 4,
+            children: List.generate(
+              list.length,
+              (index) => SizedBox(
+                child: PrimaryButton(
+                  text: list[index],
+                  radias: 100,
+                  onTap: () async {
+                    if (index == 0) {
+                      // GeneralHelper.showConfirmDialog(context,
+                      //     title: "تأكيد الحضور",
+                      //     desc: "هل انت متأكد من تاكيد حضور الطلاب؟",
+                      //     onTap: () => Get.back());
+                      Get.to(() => QRCodeView('الحضور'));
+                    } else if (index == 1) {
+                      // GeneralHelper.showConfirmDialog(context,
+                      //     title: "تأكيد الانصراف",
+                      //     desc: "هل انت متأكد من تاكيد انصراف الطلاب؟",
+                      //     onTap: () => Get.back());
+                      Get.to(() => QRCodeView('الإنصراف'));
+                    } else if (index == 2) {}
+                  },
+                ),
+              ),
+            ),
+          ),
+          Spacer(flex: 1),
+        ],
+      ),
+    );
+  }
+
+  Widget buildRow(key, value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: PrimaryText(
+            text: key ?? '',
+            color: kblack,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: PrimaryText(
+            text: value ?? "",
+            color: kblack,
+            align: TextAlign.center,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        )
+      ],
+    );
+  }
+}

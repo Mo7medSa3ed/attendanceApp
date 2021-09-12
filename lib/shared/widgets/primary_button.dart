@@ -14,8 +14,8 @@ class PrimaryButton extends StatelessWidget {
             backgroundColor: MaterialStateProperty.all(kprimary),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(radias.toDouble()))),
-            padding:
-                MaterialStateProperty.all(EdgeInsets.all(kdefultpadding / 2))),
+            padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                vertical: kdefultpadding / 2, horizontal: kdefultpadding))),
         onPressed: onTap,
         child: PrimaryText(
           text: text.trim(),

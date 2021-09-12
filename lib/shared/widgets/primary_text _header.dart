@@ -22,7 +22,11 @@ class PrimaryHeaderText extends StatelessWidget {
           Align(
             alignment: Alignment(1, 1),
             child: Container(
-              width: text == 'بياناتك' ? 120 : 140,
+              width: text == 'بياناتك'
+                  ? 120
+                  : text == 'الدفتر'
+                      ? 110
+                      : 145,
               height: 25,
               color: kprimary.withOpacity(0.8),
             ),

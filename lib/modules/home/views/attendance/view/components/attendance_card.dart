@@ -1,4 +1,3 @@
-
 import 'package:attendance_app/config/constants.dart';
 import 'package:attendance_app/shared/widgets/primary_text.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +25,7 @@ class AttendanceCard extends StatelessWidget {
                 align: TextAlign.right,
                 color: kblack,
                 fontSize: 14,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w700,
               ),
             ),
             Expanded(
@@ -35,7 +34,7 @@ class AttendanceCard extends StatelessWidget {
                 text: 'الحضور' + '\t\t' + start,
                 color: kblack,
                 fontSize: 14,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w700,
               ),
             ),
             Expanded(
@@ -44,7 +43,7 @@ class AttendanceCard extends StatelessWidget {
                 text: 'الانصراف' + '\t\t' + end,
                 fontSize: 14,
                 color: kblack,
-                fontWeight: FontWeight.w900,
+                fontWeight: FontWeight.w700,
               ),
             )
           ],

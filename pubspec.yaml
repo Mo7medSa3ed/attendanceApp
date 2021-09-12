@@ -34,7 +34,9 @@ dependencies:
   qr_code_scanner:
   screenshot:
   permission_handler:
-  image_gallery_saver:      
+  image_gallery_saver:
+  cool_alert: ^1.1.0
+  sliding_sheet:      
 dev_dependencies:
   flutter_test:
     sdk: flutter

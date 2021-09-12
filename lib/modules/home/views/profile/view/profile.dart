@@ -33,14 +33,14 @@ class ProfileView extends StatelessWidget {
               PrimaryText(
                 text: 'محمد سعيد عليوة',
                 color: kblack,
-                fontSize: 14,
+                fontSize: 16,
                 fontWeight: FontWeight.w800,
               ),
               PrimaryText(
                 text: 'طالب',
                 color: kblack,
                 fontWeight: FontWeight.w500,
-                fontSize: 14,
+                fontSize: 16,
               ),
               Spacer(flex: 1),
               buildRow('البريد الالكترونى', 'admin@gmail.com'),
@@ -50,7 +50,7 @@ class ProfileView extends StatelessWidget {
               QrImage(
                 data: 'admin@gmail.com',
                 version: QrVersions.auto,
-                size: getScreanHeight(context) * 0.3,
+                size: getScreanHeight(context) * 0.25,
               ),
               Spacer(flex: 1),
               SizedBox(
