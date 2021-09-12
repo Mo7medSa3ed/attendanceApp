@@ -4,7 +4,6 @@ import 'package:attendance_app/shared/widgets/primary_button.dart';
 import 'package:attendance_app/shared/widgets/primary_text%20_header.dart';
 import 'package:attendance_app/shared/widgets/primary_text.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 

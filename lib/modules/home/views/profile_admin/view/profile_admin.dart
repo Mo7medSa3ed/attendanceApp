@@ -1,5 +1,4 @@
 import 'package:attendance_app/config/constants.dart';
-import 'package:attendance_app/helper/general_helper.dart';
 import 'package:attendance_app/modules/home/views/qr_code/view/qrCode.dart';
 import 'package:attendance_app/shared/widgets/primary_button.dart';
 import 'package:attendance_app/shared/widgets/primary_text%20_header.dart';
@@ -15,8 +14,6 @@ class ProfileAdminView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (false) {
-      list.add("تحديث المستخدمين");
-      list.add("تحديث المستخدمين");
       list.add("تحديث المستخدمين");
     }
     return Container(
