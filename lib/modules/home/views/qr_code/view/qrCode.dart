@@ -1,9 +1,11 @@
 import 'package:attendance_app/config/constants.dart';
+import 'package:attendance_app/helper/general_helper.dart';
 import 'package:attendance_app/shared/functions/functions.dart';
 import 'package:attendance_app/shared/widgets/primary_button.dart';
 import 'package:attendance_app/shared/widgets/primary_text%20_header.dart';
 import 'package:attendance_app/shared/widgets/primary_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
 
@@ -50,11 +52,12 @@ class _QRCodeViewState extends State<QRCodeView> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
         elevation: 8,
-        backgroundColor: kwhite,
-        splashColor: kprimary,
+        backgroundColor: kprimary,
+        splashColor: kwhite,
         child: Icon(
           Icons.arrow_upward,
           size: 30,
+          color: kblack,
         ),
         onPressed: () {
           showAsBottomSheet(context);
@@ -103,6 +106,7 @@ class _QRCodeViewState extends State<QRCodeView> {
 void showAsBottomSheet(context) async {
   await showSlidingBottomSheet(context, builder: (context) {
     return SlidingSheetDialog(
+      backdropColor: kwhite,
       liftOnScrollHeaderElevation: 50,
       avoidStatusBar: false,
       scrollSpec: ScrollSpec.overscroll(),
@@ -190,9 +194,23 @@ void showAsBottomSheet(context) async {
                     spacing: 8,
                     children: [
                       PrimaryButton(
-                          text: 'تحضير', radias: 100, onTap: () async {}),
+                          text: 'تحضير',
+                          radias: 100,
+                          onTap: () async {
+                            GeneralHelper.showConfirmDialog(context,
+                                title: "تأكيد الحضور",
+                                desc: "هل انت متأكد من تاكيد حضور الطلاب؟",
+                                onTap: () => Get.back());
+                          }),
                       PrimaryButton(
-                          text: 'بدء من جديد', radias: 100, onTap: () async {}),
+                          text: 'بدء من جديد',
+                          radias: 100,
+                          onTap: () async {
+                            GeneralHelper.showConfirmDialog(context,
+                                title: "تأكيد البدء من جديد",
+                                desc: "هل انت متأكد من البدء من جديد؟",
+                                onTap: () => Get.back());
+                          }),
                     ]),
               )
             ],

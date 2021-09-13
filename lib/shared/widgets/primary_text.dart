@@ -27,6 +27,7 @@ class PrimaryText extends StatelessWidget {
           color: color,
           fontSize: fontSize.toDouble(),
           fontWeight: fontWeight,
+          decoration: TextDecoration.none,
           letterSpacing: letterSpacing.toDouble()),
     );
   }

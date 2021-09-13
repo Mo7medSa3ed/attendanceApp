@@ -37,10 +37,9 @@ class SelectScroll extends StatelessWidget {
                 init: AttendanceAdminController(),
                 builder: (controller) {
                   bool isSelect = listNeed == 1
-                      ? controller.indexYearsList
-                          .contains(controller.yearsList[index])
-                      : controller.indexSectionsList
-                          .contains(controller.sectionsList[index]);
+                      ? controller.selectedYear == controller.yearsList[index]
+                      : controller.selectedSection ==
+                          controller.sectionsList[index];
 
                   return Container(
                     margin:
@@ -65,9 +64,9 @@ class SelectScroll extends StatelessWidget {
                               MaterialStateProperty.all(Colors.grey[50])),
                       onPressed: () {
                         listNeed == 1
-                            ? controller.changeIndexYearsList(
-                                controller.yearsList[index])
-                            : controller.changeindexSectionsList(
+                            ? controller
+                                .changeSelectedYear(controller.yearsList[index])
+                            : controller.changeSelectedSection(
                                 controller.sectionsList[index]);
                       },
                       child: PrimaryText(

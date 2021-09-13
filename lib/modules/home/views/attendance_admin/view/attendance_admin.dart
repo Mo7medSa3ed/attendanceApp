@@ -47,13 +47,18 @@ class AttendanceAdminView extends StatelessWidget {
                         contentPadding: EdgeInsets.zero,
                         onTap: () async {
                           await showDatePicker(
-                            context: context,
-                            initialDate: controller.selectDate.trim().isEmpty
-                                ? DateTime.now()
-                                : DateTime.parse(controller.selectDate.trim()),
-                            firstDate: DateTime(2000),
-                            lastDate: DateTime(2050),
-                          ).then((value) {
+                                  context: context,
+                                  initialDate:
+                                      controller.selectDate.trim().isEmpty
+                                          ? DateTime.now()
+                                          : DateTime.parse(
+                                              controller.selectDate.trim()),
+                                  firstDate: DateTime(2000),
+                                  lastDate: DateTime(2050),
+                                  cancelText: 'الغاء',
+                                  confirmText: "تاكيد"
+                                  )
+                              .then((value) {
                             if (value != null) {
                               controller.changeSelectDate(
                                   value.toString().substring(0, 10));

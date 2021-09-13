@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class AuthView extends StatelessWidget {
   final _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,16 +37,19 @@ class AuthView extends StatelessWidget {
                   width: double.infinity,
                 ),
                 SizedBox(height: kdefultpadding),
-                CustumTextField(
-                  controller: _emailController,
-                  hint: 'البريد الالكترونى',
-                  validator: (v) {
-                    return (v.toString().isEmpty || v == null)
-                        ? 'البريد الالكترونى مطلوب !'
-                        : !GetUtils.isEmail(v.toString())
-                            ? 'البريد غير صحيح!!'
-                            : null;
-                  },
+                Form(
+                  key: _formKey,
+                  child: CustumTextField(
+                    controller: _emailController,
+                    hint: 'البريد الالكترونى',
+                    validator: (v) {
+                      return (v.toString().isEmpty || v == null)
+                          ? 'البريد الالكترونى مطلوب !'
+                          : !GetUtils.isEmail(v.toString())
+                              ? 'البريد غير صحيح!!'
+                              : null;
+                    },
+                  ),
                 ),
                 SizedBox(height: kdefultpadding * 3),
                 SizedBox(
@@ -53,9 +57,11 @@ class AuthView extends StatelessWidget {
                     child: PrimaryButton(
                         text: 'تسجيل دخول',
                         onTap: () {
-                          Get.put(MainHomeController()).email =
-                              _emailController.text.trim();
-                          Get.to(() => MainHome());
+                          if (_formKey.currentState!.validate()) {
+                            Get.put(MainHomeController()).email =
+                                _emailController.text.trim();
+                            Get.to(() => MainHome());
+                          }
                         }))
               ]),
         ),

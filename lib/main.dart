@@ -27,6 +27,11 @@ class MyApp extends StatelessWidget {
           onPrimary: kblack,
           onSecondary: kprimary,
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            primary: Colors.black,
+          ),
+        ),
         iconTheme: IconThemeData(color: kblack),
       ),
       home: SplashView(),

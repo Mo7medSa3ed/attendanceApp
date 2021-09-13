@@ -14,8 +14,10 @@ class ProfileAdminView extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    if (Get.put(MainHomeController()).email=='a@gmail.com' ) {
-      list.add("تحديث المستخدمين");
+    if (Get.put(MainHomeController()).email == 'a@gmail.com') {
+      if (!list.contains("تحديث المستخدمين")) {
+        list.add("تحديث المستخدمين");
+      }
     }
     return Container(
       color: kwhite,
@@ -36,7 +38,7 @@ class ProfileAdminView extends StatelessWidget {
             fontWeight: FontWeight.w800,
           ),
           PrimaryText(
-            text: 'طالب',
+            text: 'استاذ',
             color: kblack,
             fontWeight: FontWeight.w500,
             fontSize: 16,
@@ -67,16 +69,10 @@ class ProfileAdminView extends StatelessWidget {
                   radias: 100,
                   onTap: () async {
                     if (index == 0) {
-                      // GeneralHelper.showConfirmDialog(context,
-                      //     title: "تأكيد الحضور",
-                      //     desc: "هل انت متأكد من تاكيد حضور الطلاب؟",
-                      //     onTap: () => Get.back());
+                      
                       Get.to(() => QRCodeView('الحضور'));
                     } else if (index == 1) {
-                      // GeneralHelper.showConfirmDialog(context,
-                      //     title: "تأكيد الانصراف",
-                      //     desc: "هل انت متأكد من تاكيد انصراف الطلاب؟",
-                      //     onTap: () => Get.back());
+                      
                       Get.to(() => QRCodeView('الإنصراف'));
                     } else if (index == 2) {}
                   },
