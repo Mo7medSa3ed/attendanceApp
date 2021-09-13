@@ -4,12 +4,13 @@ import 'package:attendance_app/config/constants.dart';
 import 'package:attendance_app/modules/home/controllers/main_home_controller.dart';
 
 class MainHome extends StatelessWidget {
+
   final _controller = Get.put(MainHomeController());
   static final pageController = PageController();
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      bool isAdmin = true;
+       bool isAdmin =_controller.email  =='a@gmail.com' || _controller.email  =='b@gmail.com' ;
       var viewList = [];
       var viewListTitles = [];
       if (isAdmin) {

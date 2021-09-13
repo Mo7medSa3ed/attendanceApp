@@ -6,7 +6,8 @@ import 'package:get/get.dart';
 
 class MainHomeController extends GetxController {
   final currantIndex = 0.obs;
-  
+  String email = '';
+
   final homeViews = [
     ProfileView(),
     AttendanceView(),

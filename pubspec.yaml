@@ -36,11 +36,16 @@ dependencies:
   permission_handler:
   image_gallery_saver:
   cool_alert: ^1.1.0
-  sliding_sheet:      
+  sliding_sheet:
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
+    flutter_launcher_icons:       
+flutter_test:
+  sdk: flutter
+  
+flutter_icons:
+  image_path: "assets/images/logo.png"
+  android: true
+  ios: true
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

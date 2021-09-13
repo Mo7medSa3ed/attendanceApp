@@ -1,4 +1,5 @@
 import 'package:attendance_app/config/constants.dart';
+import 'package:attendance_app/modules/home/controllers/main_home_controller.dart';
 import 'package:attendance_app/modules/home/main.dart';
 import 'package:attendance_app/shared/widgets/custum_textfield.dart';
 import 'package:attendance_app/shared/widgets/primary_button.dart';
@@ -51,7 +52,11 @@ class AuthView extends StatelessWidget {
                     width: double.infinity,
                     child: PrimaryButton(
                         text: 'تسجيل دخول',
-                        onTap: () => Get.to(() => MainHome())))
+                        onTap: () {
+                          Get.put(MainHomeController()).email =
+                              _emailController.text.trim();
+                          Get.to(() => MainHome());
+                        }))
               ]),
         ),
       ),

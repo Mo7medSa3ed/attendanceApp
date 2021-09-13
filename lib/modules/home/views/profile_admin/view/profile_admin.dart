@@ -1,4 +1,5 @@
 import 'package:attendance_app/config/constants.dart';
+import 'package:attendance_app/modules/home/controllers/main_home_controller.dart';
 import 'package:attendance_app/modules/home/views/qr_code/view/qrCode.dart';
 import 'package:attendance_app/shared/widgets/primary_button.dart';
 import 'package:attendance_app/shared/widgets/primary_text%20_header.dart';
@@ -13,7 +14,7 @@ class ProfileAdminView extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    if (false) {
+    if (Get.put(MainHomeController()).email=='a@gmail.com' ) {
       list.add("تحديث المستخدمين");
     }
     return Container(
