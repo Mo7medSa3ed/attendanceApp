@@ -1,11 +1,17 @@
+import 'package:attendance_app/api/controllers/api_controller.dart';
+import 'package:attendance_app/modules/home/main.dart';
 import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 import 'package:attendance_app/modules/auth/model/user_model.dart';
-class AuthController extends GetxController {
-  loginUser(User user) {
-    print("login User");
-   
-  }
 
-  
+class AuthController extends GetxController {
+  late User loggedUser = User(email: 'asdasd', admin: false);
+
+  loginUser(User user) async {
+    final response = await Get.put(ApiController()).loginUser(user.toJson());
+    if (response != null) {
+      loggedUser = User.fromJson(response);
+      Get.offAll(() => MainHome());
+    }
+  }
 }

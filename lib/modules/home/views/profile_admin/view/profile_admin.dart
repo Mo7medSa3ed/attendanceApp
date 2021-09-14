@@ -1,9 +1,14 @@
+import 'dart:io';
+
+import 'package:attendance_app/api/controllers/api_controller.dart';
 import 'package:attendance_app/config/constants.dart';
+import 'package:attendance_app/helper/general_helper.dart';
 import 'package:attendance_app/modules/home/controllers/main_home_controller.dart';
 import 'package:attendance_app/modules/home/views/qr_code/view/qrCode.dart';
 import 'package:attendance_app/shared/widgets/primary_button.dart';
 import 'package:attendance_app/shared/widgets/primary_text%20_header.dart';
 import 'package:attendance_app/shared/widgets/primary_text.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,9 +17,12 @@ class ProfileAdminView extends StatelessWidget {
     "حضور الطلاب",
     "انصراف الطلاب",
   ];
+
+  static MainHomeController mainHomeController = Get.find();
+
   @override
   Widget build(BuildContext context) {
-    if (Get.put(MainHomeController()).email == 'a@gmail.com') {
+    if (mainHomeController.email == 'a@gmail.com') {
       if (!list.contains("تحديث المستخدمين")) {
         list.add("تحديث المستخدمين");
       }
@@ -69,12 +77,29 @@ class ProfileAdminView extends StatelessWidget {
                   radias: 100,
                   onTap: () async {
                     if (index == 0) {
-                      
                       Get.to(() => QRCodeView('الحضور'));
                     } else if (index == 1) {
-                      
                       Get.to(() => QRCodeView('الإنصراف'));
-                    } else if (index == 2) {}
+                    } else if (index == 2) {
+                      FilePickerResult? result = await FilePicker.platform
+                          .pickFiles(
+                              type: FileType.custom,
+                              allowMultiple: false,
+                              allowedExtensions: ['xlsx', 'xls', 'ods']);
+
+                      if (result != null) {
+                        if (result.files.single.path.isExcelFileName) {
+                          File file = File(result.files.single.path);
+                          ApiController apiController = Get.find();
+                          final response =
+                              await apiController.uploadExcelFile(file);
+                          if (response != null) {
+                            return GeneralHelper.showSuccessDialog(
+                                title: "تحديث المستخدمين", desc: response['msg']);
+                          }
+                        }
+                      }
+                    }
                   },
                 ),
               ),

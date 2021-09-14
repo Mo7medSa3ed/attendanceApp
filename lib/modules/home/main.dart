@@ -1,16 +1,17 @@
+import 'package:attendance_app/modules/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:attendance_app/config/constants.dart';
 import 'package:attendance_app/modules/home/controllers/main_home_controller.dart';
 
 class MainHome extends StatelessWidget {
-
   final _controller = Get.put(MainHomeController());
+  static AuthController authController = Get.find();
   static final pageController = PageController();
   @override
   Widget build(BuildContext context) {
+    final isAdmin = authController.loggedUser.admin ?? false;
     return Obx(() {
-       bool isAdmin =_controller.email  =='a@gmail.com' || _controller.email  =='b@gmail.com' ;
       var viewList = [];
       var viewListTitles = [];
       if (isAdmin) {

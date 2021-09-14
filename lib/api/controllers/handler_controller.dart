@@ -5,13 +5,12 @@ class HandlerController {
   void handleError(error) {
     if (error is ApiNotRespondException) {
       final message = error.message;
-      GeneralHelper.displayErrorDialog(description: message ?? '');
+      GeneralHelper.showErrorDialog(desc: message ?? '');
     } else if (error is BadRequestException) {
       final message = error.message;
-      GeneralHelper.displayErrorDialog(description: message ?? '');
+      GeneralHelper.showErrorDialog(desc: message ?? '');
     } else if (error is FetchDataException) {
-      GeneralHelper.displayErrorDialog(
-          description: 'Oops! It took longer to respond.');
+      GeneralHelper.showErrorDialog(desc: 'Oops! It took longer to respond.');
     }
   }
 }

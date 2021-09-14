@@ -1,15 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-
+import 'package:attendance_app/helper/general_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:attendance_app/api/services/app_exceptions.dart';
 import 'package:attendance_app/config/constants.dart';
+import 'package:get/get.dart' as g;
 
 class DioClient {
   static const int _TIME_OUT_DURATION = 20;
 
   Future<dynamic> get(String api) async {
+    GeneralHelper.showLoading();
     final url = BASEURL + api;
     try {
       final response = await Dio()
@@ -21,7 +22,7 @@ class DioClient {
                     return status! < 500;
                   }))
           .timeout(Duration(seconds: _TIME_OUT_DURATION));
-
+      g.Get.back();
       return _processResponse(response);
     } on DioError catch (err) {
       _processError(err);
@@ -34,12 +35,14 @@ class DioClient {
   }
 
   Future<dynamic> post(String api, dynamic data) async {
+    GeneralHelper.showLoading();
     final url = BASEURL + api;
-    final jsonData = json.decode(data);
+    print(url);
+    print(data);
     try {
       final response = await Dio()
           .post(url,
-              data: jsonData,
+              data: data,
               options: Options(
                   responseType: ResponseType.json,
                   followRedirects: false,
@@ -48,6 +51,8 @@ class DioClient {
                   }))
           .timeout(Duration(seconds: _TIME_OUT_DURATION));
       return _processResponse(response);
+    } on DioError catch (err) {
+      _processError(err);
     } on SocketException {
       throw FetchDataException('No Internet Connection !!', url);
     } on TimeoutException {
@@ -57,6 +62,7 @@ class DioClient {
   }
 
   dynamic _processResponse(Response response) {
+    g.Get.back();
     switch (response.statusCode) {
       case 200:
       case 201:
@@ -76,6 +82,8 @@ class DioClient {
   }
 
   dynamic _processError(DioError error) {
+    g.Get.back();
+
     switch (error.type) {
       case DioErrorType.receiveTimeout:
       case DioErrorType.connectTimeout:

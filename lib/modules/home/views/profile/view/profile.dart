@@ -1,11 +1,13 @@
 import 'dart:typed_data';
 
 import 'package:attendance_app/config/constants.dart';
+import 'package:attendance_app/modules/auth/controller/auth_controller.dart';
 import 'package:attendance_app/shared/functions/functions.dart';
 import 'package:attendance_app/shared/widgets/primary_button.dart';
 import 'package:attendance_app/shared/widgets/primary_text%20_header.dart';
 import 'package:attendance_app/shared/widgets/primary_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -14,6 +16,7 @@ import 'package:screenshot/screenshot.dart';
 class ProfileView extends StatelessWidget {
   static final ScreenshotController _screenshotController =
       ScreenshotController();
+  AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Screenshot(
@@ -31,7 +34,7 @@ class ProfileView extends StatelessWidget {
               ),
               Spacer(flex: 1),
               PrimaryText(
-                text: 'محمد سعيد عليوة',
+                text: authController.loggedUser.name ?? '',
                 color: kblack,
                 fontSize: 16,
                 fontWeight: FontWeight.w800,
@@ -43,12 +46,15 @@ class ProfileView extends StatelessWidget {
                 fontSize: 16,
               ),
               Spacer(flex: 1),
-              buildRow('البريد الالكترونى', 'admin@gmail.com'),
-              buildRow('الصف', 'الاول الثانوى'),
+              buildRow(
+                  'البريد الالكترونى', authController.loggedUser.email ?? ''),
+              buildRow('الصف', authController.loggedUser.classroom ?? ''),
               buildRow('الشعبة', 'علوم'),
               Spacer(flex: 1),
               QrImage(
-                data: 'admin@gmail.com',
+                data: authController.loggedUser.email.toString() +
+                    '/' +
+                    authController.loggedUser.name.toString(),
                 version: QrVersions.auto,
                 size: getScreanHeight(context) * 0.25,
               ),
@@ -62,14 +68,13 @@ class ProfileView extends StatelessWidget {
                     if (await Permission.storage.isDenied)
                       await Permission.storage.request();
                     else {
-                      String fileName =
-                          DateTime.now().microsecondsSinceEpoch.toString();
+                      // String fileName =
+                      //     DateTime.now().microsecondsSinceEpoch.toString();
                       final image = await _screenshotController.capture();
                       final result = await ImageGallerySaver.saveImage(
                           Uint8List.fromList(image!),
                           quality: 100,
-                          name: fileName);
-                      print(result);
+                          name: authController.loggedUser.id);
                     }
                   },
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const BASEURL = 'https://jsonplaceholder.typicode.comcc';
+const BASEURL = 'https://attendance-appasjid.herokuapp.com';
 
 const kdefultpadding = 16.0;
 const kdefultradius = 25.0;
@@ -13,3 +13,5 @@ const kprimary = Color(0xff5AE4A7);
 
 const headerFontSize = 18.0;
 const fontSize = 18.0;
+
+

@@ -1,3 +1,4 @@
+import 'package:attendance_app/api/controllers/api_controller.dart';
 import 'package:get/get.dart';
 
 class AttendanceAdminController extends GetxController {
@@ -20,5 +21,17 @@ class AttendanceAdminController extends GetxController {
   changeSelectedSection(item) {
     selectedSection = item;
     update();
+  }
+
+  filterStudent() async {
+    if (selectDate.trim().isNotEmpty) {
+      final data = {
+        "classroom": selectedYear,
+        "studyDivision": selectedSection.toString(),
+        "day": selectDate
+      };
+      final response = await Get.put(ApiController()).filterStudent(data);
+      if (response != null) {}
+    }
   }
 }

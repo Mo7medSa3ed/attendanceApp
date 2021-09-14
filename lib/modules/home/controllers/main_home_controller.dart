@@ -25,4 +25,6 @@ class MainHomeController extends GetxController {
     "بياناتك",
     "الدفتر",
   ];
+
+  
 }
