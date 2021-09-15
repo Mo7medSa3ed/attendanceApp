@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       navigatorKey: navigatorKey,
       initialBinding: InitialBinding(),
-      title: 'Flutter Demo',
+      title: 'Attendance',
       textDirection: TextDirection.rtl,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

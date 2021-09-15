@@ -25,8 +25,8 @@ class _QRCodeViewState extends State<QRCodeView> {
 
   @override
   void reassemble() {
-    super.reassemble();
     controller.resumeCamera();
+    super.reassemble();
   }
 
   @override
@@ -40,8 +40,7 @@ class _QRCodeViewState extends State<QRCodeView> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      _controller.saveStudantData(
-          scanData.code.trim().split('/').first, widget.title);
+      _controller.saveStudantData(scanData.code.trim(), widget.title);
     });
   }
 
@@ -63,7 +62,7 @@ class _QRCodeViewState extends State<QRCodeView> {
                   color: kblack,
                 ),
                 onPressed: () {
-                  showAsBottomSheet(context);
+                  showAsBottomSheet(context, widget.title);
                 },
               ),
               body: Container(
@@ -106,39 +105,42 @@ class _QRCodeViewState extends State<QRCodeView> {
               ),
             ));
   }
+}
 
-  void showAsBottomSheet(context) async {
-    await showSlidingBottomSheet(context, builder: (context) {
-      return SlidingSheetDialog(
-        backdropColor: kwhite,
-        liftOnScrollHeaderElevation: 50,
-        avoidStatusBar: false,
-        scrollSpec: ScrollSpec.overscroll(),
-        headerBuilder: (ctx, s) => Container(
-          margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: kblack.withOpacity(0.5),
-          ),
-          width: 50,
-          height: 10,
+void showAsBottomSheet(context, title) async {
+  await showSlidingBottomSheet(context, builder: (context) {
+    return SlidingSheetDialog(
+      backdropColor: kwhite,
+      liftOnScrollHeaderElevation: 50,
+      avoidStatusBar: false,
+      scrollSpec: ScrollSpec.overscroll(),
+      headerBuilder: (ctx, s) => Container(
+        margin: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: kblack.withOpacity(0.5),
         ),
-        elevation: 8,
-        extendBody: true,
-        cornerRadius: kdefultpadding * 2,
-        snapSpec: const SnapSpec(
-          snap: true,
-          snappings: [0.96],
-          positioning: SnapPositioning.relativeToAvailableSpace,
-        ),
-        builder: (context, state) {
-          return Container(
-            height: getScreanHeight(context),
-            padding: EdgeInsets.only(
-                bottom: kdefultpadding * 2,
-                right: kdefultpadding,
-                left: kdefultpadding),
-            child: Column(
+        width: 50,
+        height: 10,
+      ),
+      elevation: 8,
+      extendBody: true,
+      cornerRadius: kdefultpadding * 2,
+      snapSpec: const SnapSpec(
+        snap: true,
+        snappings: [0.95],
+        positioning: SnapPositioning.relativeToAvailableSpace,
+      ),
+      builder: (context, state) {
+        return Container(
+          height: getScreanHeight(context),
+          padding: EdgeInsets.only(
+              bottom: kdefultpadding * 2,
+              right: kdefultpadding,
+              left: kdefultpadding),
+          child: GetBuilder<QrController>(
+            init: QrController(),
+            builder: (controller) => Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
@@ -146,7 +148,7 @@ class _QRCodeViewState extends State<QRCodeView> {
                 Expanded(
                   child: ListView.builder(
                       physics: BouncingScrollPhysics(),
-                      itemCount: _controller.resultList.length + 1,
+                      itemCount: controller.resultList.length + 1,
                       itemBuilder: (ctx, i) => i == 0
                           ? Container(
                               padding: EdgeInsets.all(kdefultpadding),
@@ -160,7 +162,7 @@ class _QRCodeViewState extends State<QRCodeView> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 20,
                                   ),
-                                  if (_controller.resultList.length == 0)
+                                  if (controller.resultList.length == 0)
                                     SizedBox(
                                       height: getScreanHeight(context) / 1.2,
                                       child: Center(
@@ -180,7 +182,7 @@ class _QRCodeViewState extends State<QRCodeView> {
                                   horizontal: kdefultpadding,
                                 ),
                                 title: PrimaryText(
-                                  text: _controller.resultList[i]['email']
+                                  text: controller.resultList[i - 1]['email']
                                       .toString()
                                       .split('/')[1],
                                   color: kblack,
@@ -188,7 +190,7 @@ class _QRCodeViewState extends State<QRCodeView> {
                                   fontSize: 16,
                                 ),
                                 subtitle: PrimaryText(
-                                  text: _controller.resultList[i]['email']
+                                  text: controller.resultList[i - 1]['email']
                                       .toString()
                                       .split('/')[0],
                                   color: kblack,
@@ -198,17 +200,11 @@ class _QRCodeViewState extends State<QRCodeView> {
                               ),
                             )),
                 ),
-                Container(
-                    height: 1,
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: kdefultpadding, vertical: kdefultpadding),
-                    decoration: BoxDecoration(boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.shade300,
-                          blurRadius: 4,
-                          spreadRadius: 2)
-                    ])),
+                Divider(
+                  height: 2,
+                  thickness: 2,
+                  color: kgrey.withOpacity(0.3),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: kdefultpadding / 2,
@@ -224,22 +220,36 @@ class _QRCodeViewState extends State<QRCodeView> {
                               GeneralHelper.showConfirmDialog(context,
                                   title: "تأكيد الحضور",
                                   desc: "هل انت متأكد من تاكيد حضور الطلاب؟",
-                                  onTap: () async => await _controller
-                                      .savaAttendanceOrCheckout(
-                                          isAttendance:
-                                              widget.title == 'الحضور'));
+                                  onTap: () async {
+                                Get.back();
+                                await controller.savaAttendanceOrCheckout(
+                                    isAttendance: title == 'الحضور');
+                              });
                             }),
                         PrimaryButton(
-                            text: 'بدء من جديد',
-                            radias: 100,
-                            onTap: () async => _controller.resetResult),
+                          text: 'بدء من جديد',
+                          radias: 100,
+                          onTap: () async {
+                            controller.saveStudantData(
+                                "student@gmail.com/محمد ايمن محمد", title);
+                            // GeneralHelper.showConfirmDialog(context,
+                            //     title: "البدء من جديد",
+                            //     desc: "هل انت متأكد من البدء من جديد؟",
+                            //     onTap: () {
+                            //   Get.back();
+                            //   controller.resetResult();
+                            // }
+
+                            // );
+                          },
+                        ),
                       ]),
                 )
               ],
             ),
-          );
-        },
-      );
-    });
-  }
+          ),
+        );
+      },
+    );
+  });
 }

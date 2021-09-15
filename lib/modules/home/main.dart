@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:attendance_app/config/constants.dart';
 import 'package:attendance_app/modules/home/controllers/main_home_controller.dart';
 
+// ignore: must_be_immutable
 class MainHome extends StatelessWidget {
   final _controller = Get.put(MainHomeController());
-  static AuthController authController = Get.find();
+  AuthController authController = Get.find();
   static final pageController = PageController();
   @override
   Widget build(BuildContext context) {

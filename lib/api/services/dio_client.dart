@@ -41,7 +41,7 @@ class DioClient {
     print(url);
     print(data);
     print(setHeaders());
-    
+
     try {
       final response = await Dio()
           .post(url,
@@ -87,7 +87,6 @@ class DioClient {
 
   dynamic _processError(DioError error) {
     g.Get.back();
-
     switch (error.type) {
       case DioErrorType.receiveTimeout:
       case DioErrorType.connectTimeout:

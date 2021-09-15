@@ -1,4 +1,3 @@
-import 'package:attendance_app/modules/auth/controller/auth_controller.dart';
 import 'package:get/get.dart';
 
 class AttendanceController extends GetxController {

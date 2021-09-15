@@ -8,6 +8,7 @@ import 'package:attendance_app/shared/widgets/primary_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class AttendanceView extends StatelessWidget {
   AuthController authController = Get.find();
   final attendanceController = Get.put(AttendanceController());
@@ -79,7 +80,7 @@ class AttendanceView extends StatelessWidget {
                   SizedBox(height: kdefultpadding / 2),
                   if (controller.filterAttendanceList.length == 0)
                     SizedBox(
-                      height: (getScreanHeight(context) / 2)+kdefultpadding,
+                      height: (getScreanHeight(context) / 2) + kdefultpadding,
                       child: Center(
                         child: PrimaryText(
                             fontWeight: FontWeight.w700,
@@ -93,9 +94,9 @@ class AttendanceView extends StatelessWidget {
                 date: controller.filterAttendanceList[index - 1]['day'],
                 start: controller.filterAttendanceList[index - 1]
                         ['attendance'] ??
-                    "",
+                    "00:00",
                 end: controller.filterAttendanceList[index - 1]['checkout'] ??
-                    "",
+                    "00:00",
               ),
         itemCount: controller.filterAttendanceList.length + 1,
       ),

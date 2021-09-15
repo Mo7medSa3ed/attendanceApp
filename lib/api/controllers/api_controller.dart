@@ -3,8 +3,6 @@ import 'package:attendance_app/api/services/dio_client.dart';
 import 'package:dio/dio.dart';
 
 class ApiController with HandlerController {
-  
-  
   filterStudent(data) async {
     final response =
         await DioClient().post('/users/students', data).catchError(handleError);

@@ -11,7 +11,7 @@ class GeneralHelper {
       type: CoolAlertType.loading,
       loopAnimation: true,
       animType: CoolAlertAnimType.scale,
-      text: "Loading please wait.....",
+      text: "....Loading please wait",
     );
   }
 
@@ -32,13 +32,16 @@ class GeneralHelper {
         title: title ?? '');
   }
 
-  static dynamic showSuccessDialog({title, desc}) {
+  static dynamic showSuccessDialog({title, desc, ontap}) {
     return CoolAlert.show(
         context: navigatorKey.currentContext!,
         type: CoolAlertType.success,
         loopAnimation: true,
         animType: CoolAlertAnimType.scale,
         showCancelBtn: true,
+        cancelBtnText: 'الغاء',
+        confirmBtnText: 'تم',
+        onConfirmBtnTap: ontap,
         text: desc ?? '',
         title: title ?? '');
   }
@@ -49,6 +52,8 @@ class GeneralHelper {
       type: CoolAlertType.error,
       loopAnimation: true,
       animType: CoolAlertAnimType.scale,
+      cancelBtnText: 'الغاء',
+      confirmBtnText: 'تم',
       title: title ?? 'Error',
       text: desc ?? 'Something went wrong',
     );

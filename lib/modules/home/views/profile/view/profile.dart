@@ -13,6 +13,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
 
+// ignore: must_be_immutable
 class ProfileView extends StatelessWidget {
   static final ScreenshotController _screenshotController =
       ScreenshotController();

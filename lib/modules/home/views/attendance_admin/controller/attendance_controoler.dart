@@ -34,17 +34,11 @@ class AttendanceAdminController extends GetxController {
       final data = {
         "classroom": selectedYear,
         "studyDivision": selectedSection.toString(),
-        "day": "2021-09-15 21:22:07" // selectDate.substring(0, 19)
+        "day": selectDate.substring(0, 10)
       };
-      print(data);
-      // final data = {
-      //   "classroom": "اﻷول الثانوي",
-      //   "studyDivision": "1.2",
-      //   "day": "2021-09-15 21:22:07"
-      // };
+
       final response = await Get.put(ApiController()).filterStudent(data);
       if (response != null) {
-        print(response);
         studentList = response;
         update();
       }
