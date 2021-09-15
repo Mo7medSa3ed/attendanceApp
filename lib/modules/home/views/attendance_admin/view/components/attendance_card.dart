@@ -39,9 +39,18 @@ class AttendanceAdminCard extends StatelessWidget {
                   flex: 1,
                   child: PrimaryText(
                     align: TextAlign.start,
-                    text: 'الحضور' + '\t\t\t\t' + start,
+                    text: 'الحضور' +
+                        '\t\t' +
+                        (start.toString().isNotEmpty
+                            ? TimeOfDay(
+                                    hour: int.parse(
+                                        start.toString().substring(0, 2)),
+                                    minute: int.parse(
+                                        start.toString().substring(3, 5)))
+                                .format(context)
+                            : ''),
                     color: kblack,
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -65,9 +74,18 @@ class AttendanceAdminCard extends StatelessWidget {
                   flex: 1,
                   child: PrimaryText(
                     align: TextAlign.start,
-                    text: 'الانصراف' + '\t\t' + end,
+                    text: 'الانصراف' +
+                        '\t\t' +
+                        (end.toString().isNotEmpty
+                            ? TimeOfDay(
+                                    hour: int.parse(
+                                        end.toString().substring(0, 2)),
+                                    minute: int.parse(
+                                        end.toString().substring(3, 5)))
+                                .format(context)
+                            : ''),
                     color: kblack,
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.w700,
                   ),
                 ),

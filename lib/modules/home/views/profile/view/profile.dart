@@ -71,7 +71,7 @@ class ProfileView extends StatelessWidget {
                       // String fileName =
                       //     DateTime.now().microsecondsSinceEpoch.toString();
                       final image = await _screenshotController.capture();
-                      final result = await ImageGallerySaver.saveImage(
+                      await ImageGallerySaver.saveImage(
                           Uint8List.fromList(image!),
                           quality: 100,
                           name: authController.loggedUser.id);

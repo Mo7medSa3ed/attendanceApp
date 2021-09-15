@@ -47,7 +47,8 @@ class _QRCodeViewState extends State<QRCodeView> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
+    return GetBuilder<QrController>(
+        init: QrController(),
         builder: (controller) => Scaffold(
               backgroundColor: kwhite,
               floatingActionButtonLocation:
@@ -145,15 +146,31 @@ class _QRCodeViewState extends State<QRCodeView> {
                 Expanded(
                   child: ListView.builder(
                       physics: BouncingScrollPhysics(),
-                      itemCount: _controller.resultList.length,
+                      itemCount: _controller.resultList.length + 1,
                       itemBuilder: (ctx, i) => i == 0
                           ? Container(
                               padding: EdgeInsets.all(kdefultpadding),
-                              child: PrimaryText(
-                                text: 'قائمة الطلاب',
-                                color: kblack,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PrimaryText(
+                                    text: 'قائمة الطلاب',
+                                    color: kblack,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                  ),
+                                  if (_controller.resultList.length == 0)
+                                    SizedBox(
+                                      height: getScreanHeight(context) / 1.2,
+                                      child: Center(
+                                        child: PrimaryText(
+                                            fontWeight: FontWeight.w700,
+                                            text: "لم يتم تسجيل اى طالب",
+                                            color: kblack),
+                                      ),
+                                    )
+                                ],
                               ),
                             )
                           : Card(

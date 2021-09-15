@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 const BASEURL = 'https://attendance-appasjid.herokuapp.com';
 
@@ -14,4 +15,6 @@ const kprimary = Color(0xff5AE4A7);
 const headerFontSize = 18.0;
 const fontSize = 18.0;
 
-
+setHeaders() {
+  return {'x-auth-token': GetStorage().read('token') ?? ''};
+}

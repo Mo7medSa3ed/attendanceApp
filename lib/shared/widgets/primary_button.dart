@@ -6,12 +6,14 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({this.onTap, this.text, this.radias = 4});
   final text;
   final radias;
+
   final onTap;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(kprimary),
+            backgroundColor: MaterialStateProperty.all(
+                onTap == null ? kgrey.withOpacity(0.5) : kprimary),
             shape: MaterialStateProperty.all(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(radias.toDouble()))),
             padding: MaterialStateProperty.all(EdgeInsets.symmetric(

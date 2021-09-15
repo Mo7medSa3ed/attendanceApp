@@ -88,9 +88,11 @@ class AttendanceAdminView extends StatelessWidget {
                           )),
                       PrimaryButton(
                           text: "بحث",
-                          onTap: () async {
-                            await controller.filterStudent();
-                          }),
+                          onTap: controller.selectDate.trim().isEmpty
+                              ? null
+                              : () async {
+                                  await controller.filterStudent();
+                                }),
                     ],
                   ),
                   SizedBox(height: kdefultpadding / 2),
@@ -101,10 +103,27 @@ class AttendanceAdminView extends StatelessWidget {
                     fontWeight: FontWeight.w800,
                   ),
                   SizedBox(height: kdefultpadding / 2),
+                  if (controller.studentList.length == 0)
+                    SizedBox(
+                      height: getScreanHeight(context) / 3,
+                      child: Center(
+                        child: PrimaryText(
+                            fontWeight: FontWeight.w700,
+                            text: "لا يوجد نتائج  ",
+                            color: kblack),
+                      ),
+                    )
                 ],
               )
-            : AttendanceAdminCard(),
-        itemCount: 50,
+            : AttendanceAdminCard(
+                email: controller.studentList[index - 1]['email'],
+                name: controller.studentList[index - 1]['name'],
+                start: controller.studentList[index - 1]['attendance'][0]
+                    ['attendance'],
+                end: controller.studentList[index - 1]['attendance'][0]
+                    ['checkout'],
+              ),
+        itemCount: controller.studentList.length + 1,
       ),
     );
   }

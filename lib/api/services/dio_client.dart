@@ -16,6 +16,7 @@ class DioClient {
       final response = await Dio()
           .get(url,
               options: Options(
+                  headers: setHeaders(),
                   responseType: ResponseType.json,
                   followRedirects: false,
                   validateStatus: (status) {
@@ -39,11 +40,14 @@ class DioClient {
     final url = BASEURL + api;
     print(url);
     print(data);
+    print(setHeaders());
+    
     try {
       final response = await Dio()
           .post(url,
               data: data,
               options: Options(
+                  headers: setHeaders(),
                   responseType: ResponseType.json,
                   followRedirects: false,
                   validateStatus: (status) {
