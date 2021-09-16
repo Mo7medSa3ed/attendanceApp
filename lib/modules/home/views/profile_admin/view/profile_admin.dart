@@ -90,7 +90,7 @@ class ProfileAdminView extends StatelessWidget {
                       if (result != null) {
                         if (result.files.single.path.isExcelFileName) {
                           File file = File(result.files.single.path);
-                          ApiController apiController = Get.find();
+                          final apiController = Get.put(ApiController());
                           final response =
                               await apiController.uploadExcelFile(file);
                           if (response != null) {

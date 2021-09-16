@@ -36,7 +36,7 @@ class DioClient {
     }
   }
 
-  Future<dynamic> post(String api, dynamic data) async {
+  Future<dynamic> post(String api, dynamic data, {timeOutDuration}) async {
     GeneralHelper.showLoading();
     final url = BASEURL + api;
     var response;
@@ -51,13 +51,18 @@ class DioClient {
                   validateStatus: (status) {
                     return status! < 500;
                   }))
-          .timeout(Duration(seconds: _TIME_OUT_DURATION));
+          .timeout(timeOutDuration
+              ? Duration()
+              : Duration(seconds: _TIME_OUT_DURATION));
+      print(response.data);
       return _processResponse(response, response.data['msg']);
     } on DioError catch (err) {
       _processError(err, response.data['msg']);
     } on SocketException {
+      g.Get.back();
       throw FetchDataException('No Internet Connection !!', url);
     } on TimeoutException {
+      g.Get.back();
       throw FetchDataException(
           'API not responded in time $_TIME_OUT_DURATION', url);
     }

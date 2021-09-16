@@ -53,7 +53,7 @@ class GeneralHelper {
       loopAnimation: true,
       animType: CoolAlertAnimType.scale,
       cancelBtnText: 'الغاء',
-      confirmBtnText: 'تم',
+      confirmBtnText: 'تصحيح',
       title: title ?? 'خطأ',
       text: desc ?? 'حدث خطا فى شئ ما',
     );

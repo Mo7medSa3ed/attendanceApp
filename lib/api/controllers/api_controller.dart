@@ -19,7 +19,7 @@ class ApiController with HandlerController {
 
   uploadExcelFile(excelFile) async {
     final response = await DioClient()
-        .post('/users/excel', FormData.fromMap({"xlsx": excelFile}))
+        .post('/users/excel', FormData.fromMap({"xlsx": excelFile}),timeOutDuration:false )
         .catchError(handleError);
     if (response == null) return;
     return response;

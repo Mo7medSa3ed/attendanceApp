@@ -8,6 +8,7 @@ class HandlerController {
       GeneralHelper.showErrorDialog(desc: message ?? '');
     } else if (error is BadRequestException) {
       final message = error.message;
+      
       GeneralHelper.showErrorDialog(desc: message);
     } else if (error is FetchDataException) {
       GeneralHelper.showErrorDialog(desc: '.Oops! It took longer to respond');
