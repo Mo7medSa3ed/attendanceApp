@@ -7,7 +7,7 @@ import 'package:attendance_app/config/constants.dart';
 import 'package:get/get.dart' as g;
 
 class DioClient {
-  static const int _TIME_OUT_DURATION = 20;
+  static const int _TIME_OUT_DURATION = 30;
 
   Future<dynamic> get(String api) async {
     GeneralHelper.showLoading();
@@ -36,7 +36,8 @@ class DioClient {
     }
   }
 
-  Future<dynamic> post(String api, dynamic data, {timeOutDuration}) async {
+  Future<dynamic> post(String api, dynamic data,
+      {timeOutDuration = true}) async {
     GeneralHelper.showLoading();
     final url = BASEURL + api;
     var response;
@@ -51,8 +52,8 @@ class DioClient {
                   validateStatus: (status) {
                     return status! < 500;
                   }))
-          .timeout(timeOutDuration
-              ? Duration()
+          .timeout(!timeOutDuration
+              ? Duration(minutes: 2)
               : Duration(seconds: _TIME_OUT_DURATION));
       print(response.data);
       return _processResponse(response, response.data['msg']);
