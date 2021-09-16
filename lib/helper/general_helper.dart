@@ -11,7 +11,7 @@ class GeneralHelper {
       type: CoolAlertType.loading,
       loopAnimation: true,
       animType: CoolAlertAnimType.scale,
-      text: "....Loading please wait",
+      text: "تحميل \nبرجاء الانتظار....",
     );
   }
 
@@ -54,8 +54,8 @@ class GeneralHelper {
       animType: CoolAlertAnimType.scale,
       cancelBtnText: 'الغاء',
       confirmBtnText: 'تم',
-      title: title ?? 'Error',
-      text: desc ?? 'Something went wrong',
+      title: title ?? 'خطأ',
+      text: desc ?? 'حدث خطا فى شئ ما',
     );
   }
 
@@ -71,7 +71,8 @@ class GeneralHelper {
   static showSnackBarForAttendance(t) {
     final title = "$t" + "\t" + "الطلاب";
     final desc = "تم $t الطالب بنجاح";
-    Get.snackbar(title, desc, isDismissible: true);
+    Get.snackbar(title, desc,
+        isDismissible: true, snackPosition: SnackPosition.BOTTOM);
   }
 
   // static void displayErrorDialog(

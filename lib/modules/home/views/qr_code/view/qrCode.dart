@@ -46,64 +46,59 @@ class _QRCodeViewState extends State<QRCodeView> {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<QrController>(
-        init: QrController(),
-        builder: (controller) => Scaffold(
-              backgroundColor: kwhite,
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.startFloat,
-              floatingActionButton: FloatingActionButton(
-                elevation: 8,
-                backgroundColor: kprimary,
-                splashColor: kwhite,
-                child: Icon(
-                  Icons.arrow_upward,
-                  size: 30,
-                  color: kblack,
-                ),
-                onPressed: () {
-                  showAsBottomSheet(context, widget.title);
-                },
+    return Scaffold(
+      backgroundColor: kwhite,
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: FloatingActionButton(
+        elevation: 8,
+        backgroundColor: kprimary,
+        splashColor: kwhite,
+        child: Icon(
+          Icons.arrow_upward,
+          size: 30,
+          color: kblack,
+        ),
+        onPressed: () {
+          showAsBottomSheet(context, widget.title);
+        },
+      ),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: kdefultpadding * 2, horizontal: kdefultpadding),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  PrimaryHeaderText(
+                    text: widget.title ?? '',
+                  ),
+                  SizedBox(
+                    height: kdefultpadding,
+                  ),
+                  PrimaryText(
+                    text: 'عدل وضعية الهاتف بحيث يكون Qr فى منتصف الصورة',
+                    color: kbold,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                ],
               ),
-              body: Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: kdefultpadding * 2,
-                          horizontal: kdefultpadding),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          PrimaryHeaderText(
-                            text: widget.title ?? '',
-                          ),
-                          SizedBox(
-                            height: kdefultpadding,
-                          ),
-                          PrimaryText(
-                            text:
-                                'عدل وضعية الهاتف بحيث يكون Qr فى منتصف الصورة',
-                            color: kbold,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 14,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                        child: QRView(
-                      key: qrKey,
-                      onQRViewCreated: _onQRViewCreated,
-                    )),
-                  ],
-                ),
-              ),
-            ));
+            ),
+            Expanded(
+                child: QRView(
+              key: qrKey,
+              onQRViewCreated: _onQRViewCreated,
+            )),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -132,12 +127,10 @@ void showAsBottomSheet(context, title) async {
         positioning: SnapPositioning.relativeToAvailableSpace,
       ),
       builder: (context, state) {
+        final titleForDialog = title == 'الحضور' ? 'تحضير' : 'انصراف';
         return Container(
-          height: getScreanHeight(context),
-          padding: EdgeInsets.only(
-              bottom: kdefultpadding * 2,
-              right: kdefultpadding,
-              left: kdefultpadding),
+          height: getScreanHeight(context) * 0.95,
+          padding: EdgeInsets.only(right: kdefultpadding, left: kdefultpadding),
           child: GetBuilder<QrController>(
             init: QrController(),
             builder: (controller) => Column(
@@ -214,34 +207,38 @@ void showAsBottomSheet(context, title) async {
                       spacing: 8,
                       children: [
                         PrimaryButton(
-                            text: 'تحضير',
+                            text: titleForDialog,
                             radias: 100,
-                            onTap: () async {
-                              GeneralHelper.showConfirmDialog(context,
-                                  title: "تأكيد الحضور",
-                                  desc: "هل انت متأكد من تاكيد حضور الطلاب؟",
-                                  onTap: () async {
-                                Get.back();
-                                await controller.savaAttendanceOrCheckout(
-                                    isAttendance: title == 'الحضور');
-                              });
-                            }),
+                            onTap: controller.resultList.length == 0
+                                ? null
+                                : () async {
+                                    GeneralHelper.showConfirmDialog(context,
+                                        title: "تأكيد $title",
+                                        desc:
+                                            "هل انت متأكد من تاكيد $titleForDialog الطلاب؟",
+                                        onTap: () async {
+                                      Get.back();
+                                      await controller.savaAttendanceOrCheckout(
+                                          isAttendance: title == 'الحضور');
+                                    });
+                                  }),
                         PrimaryButton(
                           text: 'بدء من جديد',
                           radias: 100,
-                          onTap: () async {
-                            controller.saveStudantData(
-                                "student@gmail.com/محمد ايمن محمد", title);
-                            // GeneralHelper.showConfirmDialog(context,
-                            //     title: "البدء من جديد",
-                            //     desc: "هل انت متأكد من البدء من جديد؟",
-                            //     onTap: () {
-                            //   Get.back();
-                            //   controller.resetResult();
-                            // }
-
-                            // );
-                          },
+                          onTap: controller.resultList.length == 0
+                              ? null
+                              : () async {
+                                  // controller.saveStudantData(
+                                  //     "student@gmail.com/محمد ايمن محمد",
+                                  //     title);
+                                  GeneralHelper.showConfirmDialog(context,
+                                      title: "البدء من جديد",
+                                      desc: "هل انت متأكد من البدء من جديد؟",
+                                      onTap: () {
+                                    Get.back();
+                                    controller.resetResult();
+                                  });
+                                },
                         ),
                       ]),
                 )

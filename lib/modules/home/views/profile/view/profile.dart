@@ -69,9 +69,8 @@ class ProfileView extends StatelessWidget {
                     if (await Permission.storage.isDenied)
                       await Permission.storage.request();
                     else {
-                      // String fileName =
-                      //     DateTime.now().microsecondsSinceEpoch.toString();
                       final image = await _screenshotController.capture();
+
                       await ImageGallerySaver.saveImage(
                           Uint8List.fromList(image!),
                           quality: 100,

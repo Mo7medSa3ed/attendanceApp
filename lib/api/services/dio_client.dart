@@ -12,8 +12,9 @@ class DioClient {
   Future<dynamic> get(String api) async {
     GeneralHelper.showLoading();
     final url = BASEURL + api;
+    var response;
     try {
-      final response = await Dio()
+      response = await Dio()
           .get(url,
               options: Options(
                   headers: setHeaders(),
@@ -24,9 +25,9 @@ class DioClient {
                   }))
           .timeout(Duration(seconds: _TIME_OUT_DURATION));
       g.Get.back();
-      return _processResponse(response);
+      return _processResponse(response, response.data['msg']);
     } on DioError catch (err) {
-      _processError(err);
+      _processError(err, response.data['msg']);
     } on SocketException {
       throw FetchDataException('No Internet Connection !!', url);
     } on TimeoutException {
@@ -38,12 +39,9 @@ class DioClient {
   Future<dynamic> post(String api, dynamic data) async {
     GeneralHelper.showLoading();
     final url = BASEURL + api;
-    print(url);
-    print(data);
-    print(setHeaders());
-
+    var response;
     try {
-      final response = await Dio()
+      response = await Dio()
           .post(url,
               data: data,
               options: Options(
@@ -54,9 +52,9 @@ class DioClient {
                     return status! < 500;
                   }))
           .timeout(Duration(seconds: _TIME_OUT_DURATION));
-      return _processResponse(response);
+      return _processResponse(response, response.data['msg']);
     } on DioError catch (err) {
-      _processError(err);
+      _processError(err, response.data['msg']);
     } on SocketException {
       throw FetchDataException('No Internet Connection !!', url);
     } on TimeoutException {
@@ -65,15 +63,14 @@ class DioClient {
     }
   }
 
-  dynamic _processResponse(Response response) {
+  dynamic _processResponse(Response response, msg) {
     g.Get.back();
     switch (response.statusCode) {
       case 200:
       case 201:
         return response.data;
       case 400:
-        throw BadRequestException(
-            response.statusMessage, response.requestOptions.path);
+        throw BadRequestException(msg, response.requestOptions.path);
       case 401:
       case 403:
         throw UnAuthorizedException(
@@ -85,7 +82,7 @@ class DioClient {
     }
   }
 
-  dynamic _processError(DioError error) {
+  dynamic _processError(DioError error, msg) {
     g.Get.back();
     switch (error.type) {
       case DioErrorType.receiveTimeout:
@@ -96,7 +93,7 @@ class DioClient {
             'API not responded in time $_TIME_OUT_DURATION',
             error.requestOptions.path);
       case DioErrorType.response:
-        throw BadRequestException(error.message, error.requestOptions.path);
+        throw BadRequestException(msg, error.requestOptions.path);
       case DioErrorType.other:
         throw FetchDataException(
             'Error some thing went error !!', error.requestOptions.path);

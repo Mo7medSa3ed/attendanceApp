@@ -42,11 +42,18 @@ class AuthView extends StatelessWidget {
                   child: CustumTextField(
                     controller: _emailController,
                     hint: 'البريد الالكترونى',
+                    onSubmit: (v) async {
+                      if (_formKey.currentState!.validate()) {
+                        AuthController authController = Get.find();
+                        final user = User(email: _emailController.text.trim());
+                        await authController.loginUser(user);
+                      }
+                    },
                     validator: (v) {
                       return (v.toString().isEmpty || v == null)
                           ? 'البريد الالكترونى مطلوب !'
                           : !GetUtils.isEmail(v.toString())
-                              ? 'البريد غير صحيح!!'
+                              ? 'البريد الالكترونى غير صحيح!!'
                               : null;
                     },
                   ),

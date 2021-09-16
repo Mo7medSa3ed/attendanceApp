@@ -12,6 +12,7 @@ class QrController extends GetxController {
           .add({'email': code.trim(), 'hour': GeneralHelper.getTimeNow()});
 
       GeneralHelper.showSnackBarForAttendance(title.replaceAll('ال', ""));
+      update();
     }
   }
 

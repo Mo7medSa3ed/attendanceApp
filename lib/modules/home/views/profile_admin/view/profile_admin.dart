@@ -22,11 +22,11 @@ class ProfileAdminView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (mainHomeController.email == 'a@gmail.com') {
-      if (!list.contains("تحديث المستخدمين")) {
-        list.add("تحديث المستخدمين");
-      }
+    if (!list.contains("تحديث المستخدمين")) {
+      list.add("تحديث المستخدمين");
     }
+    // if (mainHomeController.email == 'teacher@gmail.com') {
+    // }
     return Container(
       color: kwhite,
       padding: const EdgeInsets.symmetric(
@@ -95,7 +95,8 @@ class ProfileAdminView extends StatelessWidget {
                               await apiController.uploadExcelFile(file);
                           if (response != null) {
                             return GeneralHelper.showSuccessDialog(
-                                title: "تحديث المستخدمين", desc: response['msg']);
+                                title: "تحديث المستخدمين",
+                                desc: response['msg']);
                           }
                         }
                       }
