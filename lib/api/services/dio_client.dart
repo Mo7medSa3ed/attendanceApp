@@ -44,7 +44,7 @@ class DioClient {
     try {
       response = await Dio()
           .post(url,
-              data: data,
+              data: data, 
               options: Options(
                   headers: setHeaders(),
                   responseType: ResponseType.json,
