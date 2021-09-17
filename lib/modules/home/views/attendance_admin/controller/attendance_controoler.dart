@@ -39,6 +39,7 @@ class AttendanceAdminController extends GetxController {
 
       final response = await Get.put(ApiController()).filterStudent(data);
       if (response != null) {
+        Get.back();
         studentList = response;
         update();
       }

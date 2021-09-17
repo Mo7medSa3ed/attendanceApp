@@ -41,14 +41,14 @@ class AttendanceAdminCard extends StatelessWidget {
                     align: TextAlign.start,
                     text: 'الحضور' +
                         '\t\t' +
-                        (start.toString().isNotEmpty
+                        (start.toString().isNotEmpty&&start.length>0
                             ? TimeOfDay(
                                     hour: int.parse(
                                         start.toString().substring(0, 2)),
                                     minute: int.parse(
                                         start.toString().substring(3, 5)))
                                 .format(context)
-                            : ''),
+                            : 'ليس بعد'),
                     color: kblack,
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
@@ -76,14 +76,14 @@ class AttendanceAdminCard extends StatelessWidget {
                     align: TextAlign.start,
                     text: 'الانصراف' +
                         '\t\t' +
-                        (end.toString().isNotEmpty
+                        (end.toString().isNotEmpty&&end.length>0
                             ? TimeOfDay(
                                     hour: int.parse(
                                         end.toString().substring(0, 2)),
                                     minute: int.parse(
                                         end.toString().substring(3, 5)))
                                 .format(context)
-                            : ''),
+                            : 'ليس بعد'),
                     color: kblack,
                     fontSize: 13,
                     fontWeight: FontWeight.w700,

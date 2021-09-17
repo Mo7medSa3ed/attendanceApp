@@ -120,10 +120,10 @@ class AttendanceAdminView extends StatelessWidget {
                 name: controller.studentList[index - 1]['name'],
                 start: controller.studentList[index - 1]['attendance'][0]
                         ['attendance'] ??
-                    '00:00',
+                    '',
                 end: controller.studentList[index - 1]['attendance'][0]
                         ['checkout'] ??
-                    "00:00",
+                    "",
               ),
         itemCount: controller.studentList.length + 1,
       ),

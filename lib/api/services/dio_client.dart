@@ -25,9 +25,9 @@ class DioClient {
                   }))
           .timeout(Duration(seconds: _TIME_OUT_DURATION));
       g.Get.back();
-      return _processResponse(response, response.data['msg']);
+      return _processResponse(response);
     } on DioError catch (err) {
-      _processError(err, response.data['msg']);
+      _processError(err, msg:response.data['msg']);
     } on SocketException {
       throw FetchDataException('No Internet Connection !!', url);
     } on TimeoutException {
@@ -55,10 +55,10 @@ class DioClient {
           .timeout(!timeOutDuration
               ? Duration(minutes: 2)
               : Duration(seconds: _TIME_OUT_DURATION));
-      print(response.data);
-      return _processResponse(response, response.data['msg']);
+      
+      return _processResponse(response);
     } on DioError catch (err) {
-      _processError(err, response.data['msg']);
+      _processError(err, msg:response.data['msg'] );
     } on SocketException {
       g.Get.back();
       throw FetchDataException('No Internet Connection !!', url);
@@ -69,7 +69,7 @@ class DioClient {
     }
   }
 
-  dynamic _processResponse(Response response, msg) {
+  dynamic _processResponse(Response response, {msg}) {
     g.Get.back();
     switch (response.statusCode) {
       case 200:
@@ -88,7 +88,7 @@ class DioClient {
     }
   }
 
-  dynamic _processError(DioError error, msg) {
+  dynamic _processError(DioError error, {msg}) {
     g.Get.back();
     switch (error.type) {
       case DioErrorType.receiveTimeout:

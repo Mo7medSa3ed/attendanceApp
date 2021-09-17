@@ -1,4 +1,4 @@
-import 'dart:typed_data';
+import 'dart:io';
 
 import 'package:attendance_app/config/constants.dart';
 import 'package:attendance_app/modules/auth/controller/auth_controller.dart';
@@ -6,9 +6,9 @@ import 'package:attendance_app/shared/functions/functions.dart';
 import 'package:attendance_app/shared/widgets/primary_button.dart';
 import 'package:attendance_app/shared/widgets/primary_text%20_header.dart';
 import 'package:attendance_app/shared/widgets/primary_text.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
@@ -50,7 +50,8 @@ class ProfileView extends StatelessWidget {
               buildRow(
                   'البريد الالكترونى', authController.loggedUser.email ?? ''),
               buildRow('الصف', authController.loggedUser.classroom ?? ''),
-              buildRow('الشعبة', 'علوم'),
+              buildRow(
+                  'الشعبة', authController.loggedUser.studyDivision.toString()),
               Spacer(flex: 1),
               QrImage(
                 data: authController.loggedUser.email.toString() +
@@ -70,11 +71,14 @@ class ProfileView extends StatelessWidget {
                       await Permission.storage.request();
                     else {
                       final image = await _screenshotController.capture();
-
-                      await ImageGallerySaver.saveImage(
-                          Uint8List.fromList(image!),
-                          quality: 100,
-                          name: authController.loggedUser.id);
+                      final path = "/storage/emulated/0/pictures";
+                      File('$path/${authController.loggedUser.id}.jpg')
+                          .writeAsBytes(image!);
+                      // final res = await ImageGallerySaver.saveImage(
+                      //     Uint8List.fromList(image!),
+                      //     quality: 100,
+                      //     name: authController.loggedUser.id);
+                      // print(res);
                     }
                   },
                 ),

@@ -94,9 +94,9 @@ class AttendanceView extends StatelessWidget {
                 date: controller.filterAttendanceList[index - 1]['day'],
                 start: controller.filterAttendanceList[index - 1]
                         ['attendance'] ??
-                    "00:00",
+                    "",
                 end: controller.filterAttendanceList[index - 1]['checkout'] ??
-                    "00:00",
+                    "",
               ),
         itemCount: controller.filterAttendanceList.length + 1,
       ),

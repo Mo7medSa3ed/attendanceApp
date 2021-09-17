@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:attendance_app/api/controllers/api_controller.dart';
 import 'package:attendance_app/config/constants.dart';
 import 'package:attendance_app/helper/general_helper.dart';
+import 'package:attendance_app/modules/auth/controller/auth_controller.dart';
 import 'package:attendance_app/modules/home/controllers/main_home_controller.dart';
 import 'package:attendance_app/modules/home/views/qr_code/view/qrCode.dart';
 import 'package:attendance_app/shared/widgets/primary_button.dart';
@@ -19,7 +20,7 @@ class ProfileAdminView extends StatelessWidget {
   ];
 
   static MainHomeController mainHomeController = Get.find();
-
+  AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
     if (!list.contains("تحديث المستخدمين")) {
@@ -40,7 +41,7 @@ class ProfileAdminView extends StatelessWidget {
           ),
           Spacer(flex: 1),
           PrimaryText(
-            text: 'محمد سعيد عليوة',
+            text:  authController.loggedUser.name ?? '',
             color: kblack,
             fontSize: 16,
             fontWeight: FontWeight.w800,
@@ -52,7 +53,7 @@ class ProfileAdminView extends StatelessWidget {
             fontSize: 16,
           ),
           Spacer(flex: 1),
-          buildRow('البريد الالكترونى', 'admin@gmail.com'),
+          buildRow('البريد الالكترونى',  authController.loggedUser.email ?? ''),
           Spacer(flex: 1),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -34,11 +34,11 @@ dependencies:
   qr_code_scanner:
   screenshot:
   permission_handler:
-  image_gallery_saver:
   cool_alert: ^1.1.0
   sliding_sheet:
   file_picker: ^4.0.2
   get_storage:
+
 dev_dependencies:
     flutter_launcher_icons:       
 flutter_test:

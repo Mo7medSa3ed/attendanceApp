@@ -6,7 +6,7 @@ import 'package:attendance_app/modules/auth/model/user_model.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AuthController extends GetxController {
-  late User loggedUser = User(email: 'asdasd', admin: false);
+  late User loggedUser = User(email: '', admin: false);
 
   loginUser(User user) async {
     final response = await Get.put(ApiController()).loginUser(user.toJson());
