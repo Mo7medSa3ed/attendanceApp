@@ -27,7 +27,7 @@ class DioClient {
       g.Get.back();
       return _processResponse(response);
     } on DioError catch (err) {
-      _processError(err, msg:response.data['msg']);
+      _processError(err, msg: response.data['msg']);
     } on SocketException {
       throw FetchDataException('No Internet Connection !!', url);
     } on TimeoutException {
@@ -40,11 +40,12 @@ class DioClient {
       {timeOutDuration = true}) async {
     GeneralHelper.showLoading();
     final url = BASEURL + api;
+    print(url);
     var response;
     try {
       response = await Dio()
           .post(url,
-              data: data, 
+              data: data,
               options: Options(
                   headers: setHeaders(),
                   responseType: ResponseType.json,
@@ -55,10 +56,10 @@ class DioClient {
           .timeout(!timeOutDuration
               ? Duration(minutes: 2)
               : Duration(seconds: _TIME_OUT_DURATION));
-      
+
       return _processResponse(response);
     } on DioError catch (err) {
-      _processError(err, msg:response.data['msg'] );
+      _processError(err, msg: response.data['msg']);
     } on SocketException {
       g.Get.back();
       throw FetchDataException('No Internet Connection !!', url);

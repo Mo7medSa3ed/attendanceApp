@@ -29,16 +29,14 @@ class MyApp extends StatelessWidget {
         // ignore: deprecated_member_use
         accentColor: kprimary,
         colorScheme: ColorScheme.light(
-            primary: kprimary,
-            primaryVariant: kprimary,
-            secondary: kprimary,
-            secondaryVariant: kprimary,
-            onPrimary: kwhite,
-            onSecondary: kprimary,
+          primary: kprimary,
+          secondary: kprimary,
+          onPrimary: kwhite,
+          onSecondary: kprimary,
         ),
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
-            primary: Colors.black,
+            foregroundColor: Colors.black,
           ),
         ),
         iconTheme: IconThemeData(color: kblack),

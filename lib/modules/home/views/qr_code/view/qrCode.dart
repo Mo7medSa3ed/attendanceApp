@@ -40,7 +40,7 @@ class _QRCodeViewState extends State<QRCodeView> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      _controller.saveStudantData(scanData.code.trim(), widget.title);
+      _controller.saveStudantData(scanData.code!.trim(), widget.title);
     });
   }
 

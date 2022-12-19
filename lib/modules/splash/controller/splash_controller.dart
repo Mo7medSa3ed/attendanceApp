@@ -1,5 +1,4 @@
 import 'package:attendance_app/modules/auth/view/auth.dart';
-import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 
 class SplashController extends GetxController {

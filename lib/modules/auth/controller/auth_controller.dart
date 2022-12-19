@@ -1,6 +1,5 @@
 import 'package:attendance_app/api/controllers/api_controller.dart';
 import 'package:attendance_app/modules/home/main.dart';
-import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 import 'package:attendance_app/modules/auth/model/user_model.dart';
 import 'package:get_storage/get_storage.dart';

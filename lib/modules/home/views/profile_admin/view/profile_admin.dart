@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:io';
 
 import 'package:attendance_app/api/controllers/api_controller.dart';
@@ -41,7 +43,7 @@ class ProfileAdminView extends StatelessWidget {
           ),
           Spacer(flex: 1),
           PrimaryText(
-            text:  authController.loggedUser.name ?? '',
+            text: authController.loggedUser.name ?? '',
             color: kblack,
             fontSize: 16,
             fontWeight: FontWeight.w800,
@@ -53,7 +55,7 @@ class ProfileAdminView extends StatelessWidget {
             fontSize: 16,
           ),
           Spacer(flex: 1),
-          buildRow('البريد الالكترونى',  authController.loggedUser.email ?? ''),
+          buildRow('البريد الالكترونى', authController.loggedUser.email ?? ''),
           Spacer(flex: 1),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -89,8 +91,8 @@ class ProfileAdminView extends StatelessWidget {
                               allowedExtensions: ['xlsx', 'xls', 'ods']);
 
                       if (result != null) {
-                        if (result.files.single.path.isExcelFileName) {
-                          File file = File(result.files.single.path);
+                        if (result.files.single.path!.isExcelFileName) {
+                          File file = File(result.files.single.path!);
                           final apiController = Get.put(ApiController());
                           final response =
                               await apiController.uploadExcelFile(file);
